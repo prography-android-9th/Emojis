@@ -1,5 +1,2 @@
-mode: immediate
 branchName: short
  autoCloseIssue: true
- commentMessage: 'Branch ${branchName} is Created'
-
