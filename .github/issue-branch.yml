@@ -1,0 +1,3 @@
+branchName: '${issue.title}'
+mode: 'immediate'
+autocloseIssue: true
