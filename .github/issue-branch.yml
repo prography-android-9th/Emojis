@@ -1,3 +1,5 @@
 branchName: '${issue.title}'
-autocloseIssue: true
+autoCloseIssue: true
+commentMessage: '${issue.title} 브랜치가 생성되었습니다!'
+openDraftPR: true
 
