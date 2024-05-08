@@ -1,2 +1,5 @@
 branchName: short
+branches: 
+  - label: '*'
+    prefix: feature/
 autoCloseIssue: true
