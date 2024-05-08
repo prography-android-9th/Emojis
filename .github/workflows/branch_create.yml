@@ -7,7 +7,8 @@ on:
   # The issue.assigned event below is only needed for the default ("auto") mode.
   issues:
     types: [ opened ]
-
+  issue_comment:
+    types: [ created ]
 jobs:
   create_issue_branch_job:
     runs-on: ubuntu-latest
