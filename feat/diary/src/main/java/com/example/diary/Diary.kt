@@ -8,5 +8,5 @@ data class Diary(
     val id: String,
     val content: String,
     val date: String,
-    val emojis: List<Uri>,
+    val emojis: List<String>,
 )
