@@ -43,6 +43,7 @@ android {
 dependencies {
     //todo: toml에 어떻게 추가할지 논의해보기
     implementation(libs.circuit)
+    implementation(libs.coil)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
