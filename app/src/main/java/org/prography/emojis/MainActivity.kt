@@ -3,44 +3,44 @@ package org.prography.emojis
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import org.prography.emojis.ui.theme.EmojisTheme
+import androidx.core.view.WindowCompat
+import com.example.diary.Diary
+import com.example.diary.DiaryDetail
+import com.example.diary.DiaryPresenter
+import com.example.diary.DiaryRepository
+import com.example.diary.DiaryScreen
+import com.slack.circuit.backstack.rememberSaveableBackStack
+import com.slack.circuit.foundation.Circuit
+import com.slack.circuit.foundation.CircuitCompositionLocals
+import com.slack.circuit.foundation.NavigableCircuitContent
+import com.slack.circuit.foundation.rememberCircuitNavigator
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val emailRepository = DiaryRepository()
+        val circuit: Circuit =
+            Circuit.Builder()
+                .addPresenterFactory(DiaryPresenter.Factory(emailRepository))
+                .addUi<DiaryScreen, DiaryScreen.State> { state, modifier -> DiaryDetail(state, modifier) }
+                .build()
+
+        enableEdgeToEdge()
+        window
+            ?.let { WindowCompat.getInsetsController(it, window.decorView) }
+            ?.isAppearanceLightStatusBars = true
+
         setContent {
-            EmojisTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
+            MaterialTheme {
+                val backStack = rememberSaveableBackStack(DiaryScreen("1"))
+                val navigator = rememberCircuitNavigator(backStack)
+                CircuitCompositionLocals(circuit) {
+                    NavigableCircuitContent(navigator = navigator, backStack = backStack)
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    EmojisTheme {
-        Greeting("Android")
     }
 }
