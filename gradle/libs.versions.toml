@@ -21,6 +21,8 @@ androidTargetSdk = "34"
 androidxJunit = "1.1.5"
 espressoCoreVersion = "3.5.1"
 security = "1.0.0"
+landscapistGlide = "1.4.7"
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -37,6 +39,9 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 security-crypto = {group = "androidx.security", name = "security-crypto", version.ref = "security"}
 androidx-navigation = {group = "androidx.navigation", name = "navigation-compose", version.ref = "composeNavigation"}
+landscapist-glide = { module = "com.github.skydoves:landscapist-glide", version.ref = "landscapistGlide" }
+
+
 #kotlin
 kotlin-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinCoroutines" }
 
