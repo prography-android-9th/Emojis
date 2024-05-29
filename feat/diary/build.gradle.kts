@@ -1,7 +1,6 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.jetbrains.kotlin.android)
-    //todo: 확인받기
+    alias(libs.plugins.lib.compose)
+    alias(libs.plugins.lib.android.core)
     id("kotlin-parcelize")
 }
 
@@ -12,6 +11,7 @@ android {
     defaultConfig {
         minSdk = 24
 
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -41,17 +41,6 @@ android {
 }
 
 dependencies {
-    //todo: toml에 어떻게 추가할지 논의해보기
     implementation(libs.circuit)
     implementation(libs.coil)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.material3)
-    implementation(libs.material)
-    implementation(libs.androidx.ui.tooling.preview.android)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    implementation(libs.androidx.appcompat)
 }
