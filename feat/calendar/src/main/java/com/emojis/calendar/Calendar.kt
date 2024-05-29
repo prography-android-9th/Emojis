@@ -1,8 +1,10 @@
 package com.emojis.calendar
 
+import androidx.compose.runtime.Immutable
 import java.time.LocalDate
 
-data class CalendarEvent(
+@Immutable
+data class Calendar(
     val date: LocalDate,
     val emojis: List<String>
 )
