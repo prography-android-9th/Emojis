@@ -21,6 +21,9 @@ androidTargetSdk = "34"
 androidxJunit = "1.1.5"
 espressoCoreVersion = "3.5.1"
 security = "1.0.0"
+kord = "0.14.0"
+
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -46,6 +49,10 @@ android-tools-common = { group = "com.android.tools", name = "common", version.r
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunit" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCoreVersion" }
+
+
+# Discord ( Kord )
+kord-core = { group = "dev.kord", name = "kord-core", version.ref = "kord"}
 
 
 [plugins]
