@@ -6,7 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.MaterialTheme
 import androidx.core.view.WindowCompat
-import com.example.diary.Diary
 import com.example.diary.DiaryDetail
 import com.example.diary.DiaryPresenter
 import com.example.diary.DiaryRepository
