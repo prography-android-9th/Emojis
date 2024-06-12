@@ -9,3 +9,6 @@ android {
         jvmTarget = "1.8"
     }
 }
+dependencies {
+    implementation(libs.kord.core)
+}
