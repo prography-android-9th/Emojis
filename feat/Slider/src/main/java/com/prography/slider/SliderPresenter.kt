@@ -1,10 +1,25 @@
 package com.prography.slider
 
+import androidx.compose.runtime.Composable
+import com.slack.circuit.runtime.Navigator
+import com.slack.circuit.runtime.presenter.Presenter
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class SliderPresenter {
+class SliderPresenter(
+    private val screen: SliderScreen,
+    private val navigator: Navigator
+): Presenter<SliderScreen.State> {
+
+    @Composable
+    override fun present(): SliderScreen.State{
+        return SliderScreen.State(
+            currentDate = getCurrentDate(),
+            emojiList = getEmojiList()
+        )
+    }
+
     fun getCurrentDate(): String {
         val currentDate = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).format(Date())
         return currentDate

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.lib.android.core)
     alias(libs.plugins.lib.compose)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -12,4 +13,5 @@ android {
 
 dependencies {
     implementation(libs.landscapist.glide)
+    implementation(libs.circuit.foundation)
 }
