@@ -7,7 +7,7 @@ import androidx.navigation.navArgument
  * Created by MyeongKi.
  */
 sealed interface EmojisPath {
-    val routeHost: EmojisRouteHost
+    private fun routeHost(): String = this::class.simpleName ?: ""
     val arguments: List<NamedNavArgument>
     fun getDestination(): String {
         val queries: String =
@@ -18,7 +18,7 @@ sealed interface EmojisPath {
                     "$acc&$s"
                 }
             } ?: ""
-        return routeHost.name + queries
+        return routeHost() + queries
     }
 
     fun getNavigation(): String {
@@ -30,12 +30,11 @@ sealed interface EmojisPath {
                     "$acc&$s"
                 }
             } ?: ""
-        return routeHost.name + queries
+        return routeHost() + queries
 
     }
 
     data object Sample1 : EmojisPath {
-        override val routeHost: EmojisRouteHost = EmojisRouteHost.SAMPLE_ROUTE_1
         override val arguments: List<NamedNavArgument> = listOf()
     }
 
@@ -45,7 +44,6 @@ sealed interface EmojisPath {
          */
         private val loadId: String = "",
     ) : EmojisPath {
-        override val routeHost: EmojisRouteHost = EmojisRouteHost.SAMPLE_ROUTE_2
         override val arguments: List<NamedNavArgument> = listOf(
             navArgument(ArgumentName.LOAD_ID_KEY.name) { defaultValue = loadId },
         )
