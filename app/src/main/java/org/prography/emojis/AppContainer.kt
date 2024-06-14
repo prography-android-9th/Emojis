@@ -1,6 +1,6 @@
 package org.prography.emojis
 
-import NavigationEvent
+import org.prography.navigation.NavigationEvent
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 /**

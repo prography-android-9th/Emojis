@@ -1,3 +1,5 @@
+package org.prography.navigation
+
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 

@@ -1,8 +1,7 @@
 package org.prography.emojis.navigate
 
-import EmojisPath
-import NavigationActions
-import NavigationEvent
+import org.prography.navigation.EmojisPath
+import org.prography.navigation.NavigationActions
 import androidx.compose.foundation.clickable
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,7 +15,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
 import org.prography.emojis.AppContainer
-import subscribeNavigationEvent
+import org.prography.navigation.subscribeNavigationEvent
 
 /**
  * Created by MyeongKi.
@@ -45,7 +44,7 @@ fun EmojisNavGraph(
                 val scope = rememberCoroutineScope()
                 Text(text = "hi", fontSize = 40.sp, modifier = Modifier.clickable {
                     scope.launch {
-                        AppContainer.navigateEventFlow.emit(NavigationEvent.NavigateSample2Route("testLoadId"))
+                        AppContainer.navigateEventFlow.emit(org.prography.navigation.NavigationEvent.NavigateSample2Route("testLoadId"))
                     }
 
                 })

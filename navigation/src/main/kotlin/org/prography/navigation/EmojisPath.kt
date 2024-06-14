@@ -1,3 +1,5 @@
+package org.prography.navigation
+
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.navArgument
 
