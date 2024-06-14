@@ -25,3 +25,5 @@ rootProject.name = "Emojis"
 include(":app")
 include(":feat:cpri")
 include(":data")
+include(":utils")
+
