@@ -3,6 +3,7 @@ agp = "8.4.0"
 androidTools = "31.4.0"
 kotlin = "1.9.0"
 kotlinCoroutines = "1.8.1"
+kotlinDateTime = "0.6.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
@@ -39,7 +40,7 @@ security-crypto = {group = "androidx.security", name = "security-crypto", versio
 androidx-navigation = {group = "androidx.navigation", name = "navigation-compose", version.ref = "composeNavigation"}
 #kotlin
 kotlin-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinCoroutines" }
-
+kotlin-date = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinDateTime" }
 #gradle
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
 android-tools-common = { group = "com.android.tools", name = "common", version.ref = "androidTools" }
