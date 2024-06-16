@@ -7,7 +7,6 @@ import com.slack.circuit.runtime.CircuitUiState
 import com.slack.circuit.runtime.screen.Screen
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
-import java.util.Calendar
 
 @Parcelize
 @OptIn(ExperimentalFoundationApi::class)
@@ -17,12 +16,12 @@ data class CalendarScreen(val id: String) : Screen {
         val selectedDate: LocalDate,
         val pagerState: PagerState,
         val currentPage: Int,
-        val initialPage: Int,
         val eventSink: (Event) -> Unit
     ) : CircuitUiState
 
     sealed interface Event : CircuitUiEvent {
         data class DateSelected(val date: LocalDate) : Event
         data class PageChanged(val page: Int) : Event
+        data object AddButtonClicked : Event
     }
 }

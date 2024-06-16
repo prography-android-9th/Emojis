@@ -1,5 +1,6 @@
 package com.emojis.calendar
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -8,22 +9,29 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,6 +41,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.emojis.calendar.DateConstants.YEAR_RANGE
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -40,6 +49,7 @@ import java.time.format.TextStyle
 import java.util.Locale
 
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CalendarUi(
@@ -49,7 +59,12 @@ fun CalendarUi(
     Column(modifier = modifier) {
         CalendarHeader(
             modifier = Modifier.padding(20.dp),
-            text = state.currentMonth.format(DateTimeFormatter.ofPattern("MMMM yyyy", Locale.ENGLISH))
+            text = state.currentMonth.format(
+                DateTimeFormatter.ofPattern(
+                    "MMMM yyyy",
+                    Locale.ENGLISH
+                )
+            )
         )
 
         LaunchedEffect(state.pagerState.currentPage) {
@@ -57,9 +72,8 @@ fun CalendarUi(
         }
 
         HorizontalPager(state = state.pagerState) { page ->
-            val yearRange = IntRange(1970, 2100)
             val date = LocalDate.of(
-                yearRange.first + page / 12,
+                YEAR_RANGE.first + page / 12,
                 page % 12 + 1,
                 1
             )
@@ -75,8 +89,89 @@ fun CalendarUi(
                 )
             }
         }
+
+        AddButton(
+            onClick = {
+                state.eventSink(CalendarScreen.Event.AddButtonClicked)
+            }
+        )
+
+        CalendarItemList(itemList = items, selectedDate = state.selectedDate)
     }
 }
+
+@Composable
+fun CalendarItemList(itemList: List<CalendarItem>, selectedDate: LocalDate) {
+    LazyColumn {
+        items(itemList) { item ->
+            if (item.date == selectedDate) {
+                Item(item)
+            }
+        }
+    }
+}
+
+@Composable
+fun Item(itemData: CalendarItem) {
+    Card(
+        modifier = Modifier
+            .padding(20.dp, 8.dp)
+            .fillMaxWidth(),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Text(
+                text = itemData.date.toString(),
+                fontWeight = FontWeight.Bold,
+                color = Color.Black
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                itemData.emojis.forEach { emoji ->
+                    Text(
+                        text = emoji,
+                        fontSize = 24.sp
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                }
+            }
+        }
+    }
+}
+
+val items = listOf(
+    CalendarItem(
+        id = 0,
+        date = LocalDate.now(),
+        emojis = listOf("😊", "🎉", "🌟")
+    ),
+    CalendarItem(
+        id = 1,
+        date = LocalDate.of(2024,6,29),
+        emojis = listOf("😊", "🌟", "🎉")
+    )
+)
+
+@Composable
+fun AddButton(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
+) {
+    Button(
+        onClick = onClick,
+        modifier = modifier
+            .padding(20.dp)
+            .fillMaxWidth()
+    ) {
+        Icon(imageVector = Icons.Default.Add, contentDescription = "Add Event")
+    }
+}
+
+
 @Composable
 fun CalendarHeader(
     modifier: Modifier = Modifier,
@@ -90,6 +185,7 @@ fun CalendarHeader(
         )
     }
 }
+
 @Composable
 fun CalendarMonthItem(
     modifier: Modifier = Modifier,
@@ -97,9 +193,9 @@ fun CalendarMonthItem(
     selectedDate: LocalDate,
     onSelectedDate: (LocalDate) -> Unit
 ) {
-    val lastDay by remember { mutableIntStateOf(currentDate.lengthOfMonth()) }
-    val firstDayOfWeek by remember { mutableIntStateOf(currentDate.dayOfWeek.value) }
-    val days by remember { mutableStateOf(IntRange(1, lastDay).toList()) }
+    val lastDay = currentDate.lengthOfMonth()
+    val firstDayOfWeek = currentDate.dayOfWeek.value
+    val days = (1..lastDay).toList()
 
     Column(modifier = modifier) {
         DayOfWeek()
@@ -122,11 +218,14 @@ fun CalendarMonthItem(
                     selectedDate.compareTo(date) == 0
                 }
 
+                val hasEvent = items.any { it.date == date }
+
                 CalendarDay(
                     modifier = Modifier.padding(top = 20.dp),
                     date = date,
                     isToday = date == LocalDate.now(),
                     isSelected = isSelected,
+                    hasEvent = hasEvent,
                     onSelectedDate = onSelectedDate
                 )
             }
@@ -183,7 +282,7 @@ fun CalendarDay(
                 modifier = Modifier
                     .size(8.dp)
                     .clip(shape = RoundedCornerShape(4.dp))
-                    .background(if (isSelected) Color.Red else Color.Black)
+                    .background(if (isSelected) Color.White else Color.Black)
             )
         }
     }
