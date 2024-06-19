@@ -26,6 +26,7 @@ circuit = "0.20.0"
 material3Desktop = "1.2.1"
 uiToolingPreviewAndroid = "1.6.7"
 datastore = "1.1.1"
+constraintLayout = "1.0.1"
 
 [libraries]
 androidx-datastore = { group = "androidx.datastore", name = "datastore", version.ref = "datastore" }
@@ -43,6 +44,7 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-compose-viewModel = {group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycleRuntimeKtx"}
 androidx-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3Desktop"}
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidx-compose-constraintLayout = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "constraintLayout" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 security-crypto = {group = "androidx.security", name = "security-crypto", version.ref = "security"}
 androidx-navigation = {group = "androidx.navigation", name = "navigation-compose", version.ref = "composeNavigation"}

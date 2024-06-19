@@ -43,4 +43,5 @@ android {
 dependencies {
     implementation(libs.circuit)
     implementation(libs.coil)
+    implementation(libs.androidx.compose.constraintLayout)
 }

@@ -19,10 +19,10 @@ class DiaryPresenter(
         val diary = diaryRepository.getSingleDiary(screen.id)
         return DiaryScreen.State(diary) { event ->
             when (event) {
-                DiaryScreen.Event.BackClicked -> navigator.pop()
-                DiaryScreen.Event.WriteButtonClicked -> navigator.pop()
-                DiaryScreen.Event.dateButtonClicked -> navigator.pop()
-                DiaryScreen.Event.submitButtonClicked -> navigator.pop()
+                DiaryScreen.Event.BackClicked -> {}
+                DiaryScreen.Event.WriteButtonClicked -> {}
+                DiaryScreen.Event.dateButtonClicked -> {}
+                DiaryScreen.Event.submitButtonClicked -> {}
             }
         }
     }
