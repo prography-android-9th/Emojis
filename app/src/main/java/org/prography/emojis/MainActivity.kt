@@ -19,27 +19,5 @@ import com.slack.circuit.foundation.rememberCircuitNavigator
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val emailRepository = DiaryRepository()
-        val circuit: Circuit =
-            Circuit.Builder()
-                .addPresenterFactory(DiaryPresenter.Factory(emailRepository))
-                .addUi<DiaryScreen, DiaryScreen.State> { state, modifier -> DiaryDetail(state, modifier) }
-                .build()
-
-        enableEdgeToEdge()
-        window
-            ?.let { WindowCompat.getInsetsController(it, window.decorView) }
-            ?.isAppearanceLightStatusBars = true
-
-        setContent {
-            MaterialTheme {
-                val backStack = rememberSaveableBackStack(DiaryScreen("1"))
-                val navigator = rememberCircuitNavigator(backStack)
-                CircuitCompositionLocals(circuit) {
-                    NavigableCircuitContent(navigator = navigator, backStack = backStack)
-                }
-            }
-        }
     }
 }
