@@ -24,4 +24,5 @@ dependencyResolutionManagement {
 rootProject.name = "Emojis"
 include(":app")
 include(":feat:cpri")
+include(":feat:diary")
 include(":data")

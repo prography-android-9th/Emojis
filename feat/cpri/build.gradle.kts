@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "org.prography.cpri"
+    namespace = "com.prography.cpri"
     kotlinOptions {
         jvmTarget = "1.8"
     }
