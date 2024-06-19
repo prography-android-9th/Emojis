@@ -41,6 +41,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.emojis.calendar.DateConstants.YEAR_RANGE
 import java.time.DayOfWeek
 import java.time.LocalDate
@@ -84,6 +85,7 @@ fun CalendarUi(
                         .fillMaxWidth()
                         .padding(horizontal = 20.dp),
                     currentDate = date,
+                    itemList = state.itemList,
                     selectedDate = state.selectedDate,
                     onSelectedDate = { state.eventSink(CalendarScreen.Event.DateSelected(it)) }
                 )
@@ -96,7 +98,7 @@ fun CalendarUi(
             }
         )
 
-        CalendarItemList(itemList = items, selectedDate = state.selectedDate)
+        CalendarItemList(itemList = state.itemList, selectedDate = state.selectedDate)
     }
 }
 
@@ -132,9 +134,9 @@ fun Item(itemData: CalendarItem) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 itemData.emojis.forEach { emoji ->
-                    Text(
-                        text = emoji,
-                        fontSize = 24.sp
+                    AsyncImage(
+                        model = emoji,
+                        contentDescription = null
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                 }
@@ -142,19 +144,6 @@ fun Item(itemData: CalendarItem) {
         }
     }
 }
-
-val items = listOf(
-    CalendarItem(
-        id = 0,
-        date = LocalDate.now(),
-        emojis = listOf("😊", "🎉", "🌟")
-    ),
-    CalendarItem(
-        id = 1,
-        date = LocalDate.of(2024,6,29),
-        emojis = listOf("😊", "🌟", "🎉")
-    )
-)
 
 @Composable
 fun AddButton(
@@ -189,6 +178,7 @@ fun CalendarHeader(
 @Composable
 fun CalendarMonthItem(
     modifier: Modifier = Modifier,
+    itemList: List<CalendarItem>,
     currentDate: LocalDate,
     selectedDate: LocalDate,
     onSelectedDate: (LocalDate) -> Unit
@@ -218,7 +208,7 @@ fun CalendarMonthItem(
                     selectedDate.compareTo(date) == 0
                 }
 
-                val hasEvent = items.any { it.date == date }
+                val hasEvent = itemList.any { it.date == date }
 
                 CalendarDay(
                     modifier = Modifier.padding(top = 20.dp),

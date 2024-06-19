@@ -16,6 +16,7 @@ data class CalendarScreen(val id: String) : Screen {
         val selectedDate: LocalDate,
         val pagerState: PagerState,
         val currentPage: Int,
+        val itemList: List<CalendarItem>,
         val eventSink: (Event) -> Unit
     ) : CircuitUiState
 

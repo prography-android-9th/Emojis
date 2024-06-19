@@ -22,6 +22,27 @@ class CalendarPresenter(
     @OptIn(ExperimentalFoundationApi::class)
     @Composable
     override fun present(): CalendarScreen.State {
+        val items = listOf(
+            CalendarItem(
+                id = 0,
+                date = LocalDate.now(),
+                emojis = listOf(
+                    "https://picsum.photos/seed/1/200/200.jpg",
+                    "https://picsum.photos/seed/2/200/200.jpg",
+                    "https://picsum.photos/seed/3/200/200.jpg"
+                )
+            ),
+            CalendarItem(
+                id = 1,
+                date = LocalDate.of(2024,6,29),
+                emojis = listOf(
+                    "https://picsum.photos/seed/4/200/200.jpg",
+                    "https://picsum.photos/seed/5/200/200.jpg",
+                    "https://picsum.photos/seed/6/200/200.jpg"
+                )
+            )
+        )
+
         val (selectedDate, setSelectedDate) = remember {
             mutableStateOf(LocalDate.now())
         }
@@ -42,6 +63,7 @@ class CalendarPresenter(
             currentMonth = currentMonth,
             selectedDate = selectedDate,
             pagerState = pagerState,
+            itemList = items,
             currentPage = currentPage
         ) { event ->
             when (event) {

@@ -42,6 +42,9 @@ class LibAndroidCorePlugin : Plugin<Project> {
 
                     // Circuit
                     add("implementation", libs.findLibrary("circuit-foundation").get())
+
+                    // Coil
+                    add("implementation", libs.findLibrary("coil-compose").get())
                 }
             }
         }
